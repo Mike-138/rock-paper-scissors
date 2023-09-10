@@ -4,17 +4,10 @@ function getComputerChoice() {
     return OPTIONS[Math.floor(Math.random() * 3)];
 }
 
-function getPlayerChoice() {
-    let playerSelection = prompt("Rock, paper, or scissors?").toLowerCase();
-    while (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
-        playerSelection = prompt("Invalid response. Rock, paper, or scissors?").toLowerCase();
-    }
-    return playerSelection.replace(playerSelection[0], playerSelection[0].toUpperCase());
-}
-
 function playRound(playerSelection, computerSelection) {
-    if (playerSelection === computerSelection) {
-        return [`Draw! Both players chose ${playerSelection}!`, 0.5, 0.5];
+    const computerChoice = computerSelection()
+    if (playerSelection === computerChoice) {
+        return [`Draw! Both players chose ${playerSelection}!`, 0, 0];
     }
     let getIndex = function(choice) {
         for (let i = 0; i < OPTIONS.length; i++) {
@@ -24,11 +17,11 @@ function playRound(playerSelection, computerSelection) {
         }
     };
     const playerIndex = getIndex(playerSelection);
-    const computerIndex = getIndex(computerSelection);
+    const computerIndex = getIndex(computerChoice);
     if (playerIndex === computerIndex + 1 || playerIndex === computerIndex - 2) {
-        return [`You Win! ${playerSelection} beats ${computerSelection}!`, 1, 0];
+        return [`You Win! ${playerSelection} beats ${computerChoice}!`, 1, 0];
     }
-    return [`You Lose! ${computerSelection} beats ${playerSelection}!`, 0, 1];
+    return [`You Lose! ${computerChoice} beats ${playerSelection}!`, 0, 1];
 }
 
 function game() {
@@ -51,8 +44,20 @@ function game() {
 }
 
 const buttons = document.querySelectorAll("button");
+const score_container = document.querySelector("div");
+const score = document.querySelector("h2");
+const final_result = document.querySelector("h1");
+const result = document.querySelector("h4");
+
+let playerScoreTotal = 0;
+let computerScoreTotal = 0;
+
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
-        console.log(button.textContent)
+        const [roundResult, playerScoreEarned, computerScoreEarned] = playRound(button.textContent, getComputerChoice);
+        result.textContent = roundResult;
+        playerScoreTotal += playerScoreEarned;
+        computerScoreTotal += computerScoreEarned;
+        score.textContent = `${playerScoreTotal} - ${computerScoreTotal}`;
     })
 })
