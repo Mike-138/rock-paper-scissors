@@ -51,17 +51,21 @@ let playerScoreTotal = 0;
 let computerScoreTotal = 0;
 
 buttons.forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (event) => {
+        if (playerScoreTotal === 5 || computerScoreTotal === 5) {
+            document.body.addEventListener("click", () => {
+                gameRestart(score, final_result, result);
+                playerScoreTotal = 0;
+                computerScoreTotal = 0;
+            }, {
+                once: true
+            });
+        }
         const [roundResult, playerScoreEarned, computerScoreEarned] = playRound(button.textContent, getComputerChoice);
         result.textContent = roundResult;
         playerScoreTotal += playerScoreEarned;
         computerScoreTotal += computerScoreEarned;
         score.textContent = `${playerScoreTotal} - ${computerScoreTotal}`;
         final_result.textContent = gameUpdate(playerScoreTotal, computerScoreTotal);
-        if (playerScoreTotal === 5 || computerScoreTotal === 5) {
-            gameRestart(score, final_result, result);
-            playerScoreTotal = 0;
-            computerScoreTotal = 0;
-        }
-    })
-})
+    });
+});
