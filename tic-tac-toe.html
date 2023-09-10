@@ -1,13 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" style="height: 100%">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-Tac-Toe</title>
+    <style>
+        html {
+            height: 100%;
+        }
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .flex {
+            display: flex;
+            gap: 100px;
+        }
+        .border {
+            border: 2px solid red;
+        }
+        .choice {
+            width: 200px;
+            height: 100px;
+            padding: 10px;
+            font-size: large;
+            font-weight: bold;
+            background-color: black;
+            color: white;
+            border: 5px groove red;
+            border-radius: 25px;
+        }
+    </style>
     <script src="script.js" defer></script>
 </head>
-<body style="margin: 0; font-family: sans-serif; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+<body>
     <h1>Tic-Tac-Toe</h1>
-    <p>Open the developer console and type "game()" to play</p>
+    <p>Which will you choose?</p>
+    <div class="flex">
+        <button class="choice">Rock</button>
+        <button class="choice">Paper</button>
+        <button class="choice">Scissors</button>
+    </div>
 </body>
 </html>
