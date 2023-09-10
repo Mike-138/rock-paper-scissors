@@ -34,6 +34,13 @@ function gameUpdate(playerScore, computerScore) {
     return "You Lost!";
 }
 
+function gameRestart(...htmlTags) {
+    for (tag of htmlTags) {
+        tag.textContent = "";
+    }
+    return;
+}
+
 const buttons = document.querySelectorAll("button");
 const score_container = document.querySelector("div");
 const score = document.querySelector("h2");
@@ -51,5 +58,10 @@ buttons.forEach((button) => {
         computerScoreTotal += computerScoreEarned;
         score.textContent = `${playerScoreTotal} - ${computerScoreTotal}`;
         final_result.textContent = gameUpdate(playerScoreTotal, computerScoreTotal);
+        if (playerScoreTotal === 5 || computerScoreTotal === 5) {
+            gameRestart(score, final_result, result);
+            playerScoreTotal = 0;
+            computerScoreTotal = 0;
+        }
     })
 })
