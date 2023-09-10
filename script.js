@@ -6,8 +6,8 @@ function getComputerChoice() {
 
 function getPlayerChoice() {
     let playerSelection = prompt("Rock, paper, or scissors?").toLowerCase();
-    while (playerSelection !== "rock" || playerSelection !== "paper" || playerSelection !== "scissors") {
-        playerSelection = prompt("Invalid response. Rock, paper, or scissors?");
+    while (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
+        playerSelection = prompt("Invalid response. Rock, paper, or scissors?").toLowerCase();
     }
     return playerSelection.replace(playerSelection[0], playerSelection[0].toUpperCase());
 }
@@ -17,7 +17,7 @@ function playRound(playerSelection, computerSelection) {
         return `Draw! Both players chose ${playerSelection}!`;
     }
     let getIndex = function(choice) {
-        for (let i = 0; i < OPTIONS.length(); i++) {
+        for (let i = 0; i < OPTIONS.length; i++) {
             if (choice === OPTIONS[i]) {
                 return i;
             }
