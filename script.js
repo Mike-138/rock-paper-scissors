@@ -24,23 +24,14 @@ function playRound(playerSelection, computerSelection) {
     return [`You Lose! ${computerChoice} beats ${playerSelection}!`, 0, 1];
 }
 
-function game() {
-    let playerPointsTotal = 0;
-    let computerPointsTotal = 0;
-    for (let i = 0; i < 5; i++) {
-        let [roundResult, playerPointsEarned, computerPointsEarned] = playRound(getPlayerChoice(), getComputerChoice());
-        playerPointsTotal += playerPointsEarned;
-        computerPointsTotal += computerPointsEarned;
-        console.log(roundResult + `\nCurrent Score:\nPlayer -> ${playerPointsTotal}\nComputer -> ${computerPointsTotal}`);
+function gameUpdate(playerScore, computerScore) {
+    if (playerScore !== 5 && computerScore !== 5) {
+        return;
     }
-    console.log(`The final score is ${playerPointsTotal}-${computerPointsTotal}`);
-    if (playerPointsTotal > computerPointsTotal) {
-        console.log("You Win!");
-    } else if (playerPointsTotal < computerPointsTotal) {
-        console.log("You Lose!");
-    } else {
-        console.log("Draw!");
+    if (playerScore === 5) {
+        return "You Won!";
     }
+    return "You Lost!";
 }
 
 const buttons = document.querySelectorAll("button");
@@ -59,5 +50,6 @@ buttons.forEach((button) => {
         playerScoreTotal += playerScoreEarned;
         computerScoreTotal += computerScoreEarned;
         score.textContent = `${playerScoreTotal} - ${computerScoreTotal}`;
+        final_result.textContent = gameUpdate(playerScoreTotal, computerScoreTotal);
     })
 })
