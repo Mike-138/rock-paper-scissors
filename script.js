@@ -46,26 +46,29 @@ const score_container = document.querySelector("div");
 const score = document.querySelector("h2");
 const final_result = document.querySelector("h1");
 const result = document.querySelector("h4");
+const subtitle = document.querySelector("p");
 
 let playerScoreTotal = 0;
 let computerScoreTotal = 0;
 
 buttons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-        if (playerScoreTotal === 5 || computerScoreTotal === 5) {
-            document.body.addEventListener("click", () => {
-                gameRestart(score, final_result, result);
-                playerScoreTotal = 0;
-                computerScoreTotal = 0;
-            }, {
-                once: true
-            });
-        }
+    button.addEventListener("click", () => {
         const [roundResult, playerScoreEarned, computerScoreEarned] = playRound(button.textContent, getComputerChoice);
         result.textContent = roundResult;
         playerScoreTotal += playerScoreEarned;
         computerScoreTotal += computerScoreEarned;
         score.textContent = `${playerScoreTotal} - ${computerScoreTotal}`;
         final_result.textContent = gameUpdate(playerScoreTotal, computerScoreTotal);
+        if (playerScoreTotal === 5 || computerScoreTotal === 5) {
+            subtitle.textContent = "CLICK HERE TO RESTART!";
+            subtitle.addEventListener("click", () => {
+                gameRestart(score, final_result, result);
+                subtitle.textContent = "Which will you choose?";
+                playerScoreTotal = 0;
+                computerScoreTotal = 0;
+            }, {
+                once : true
+            });
+        }
     });
 });
