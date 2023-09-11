@@ -61,14 +61,14 @@ buttons.forEach((button) => {
         score.textContent = `${playerScoreTotal} - ${computerScoreTotal}`;
         final_result.textContent = gameUpdate(playerScoreTotal, computerScoreTotal);
         if (playerScoreTotal === 5 || computerScoreTotal === 5) {
-            buttons.forEach((button) => button.remove());
+            buttons_container.classList.toggle("hidden")
             subtitle.textContent = "CLICK HERE TO RESTART!";
             subtitle.addEventListener("click", () => {
                 gameRestart(score, final_result, result);
                 subtitle.textContent = "Which will you choose?";
                 playerScoreTotal = 0;
                 computerScoreTotal = 0;
-                buttons.forEach((button) => buttons_container.appendChild(button));
+                buttons_container.classList.toggle("hidden");
             }, {
                 once : true
             });
